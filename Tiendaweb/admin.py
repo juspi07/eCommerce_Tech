@@ -25,7 +25,7 @@ class ProductoAdmin(admin.ModelAdmin):
 
 	fieldsets = (
 		(None, {
-			'fields': ('Codigo', 'Marca', 'Ano', 'Categoria', 'Color', 'Temporada', 'Sexo', 'Vendidos', 'Precio', 'Precio_desc')
+			'fields': ('Codigo', 'Nombre', 'Marca', 'Ano', 'Categoria', 'Color', 'Temporada', 'Sexo', 'Vendidos', 'Precio', 'Precio_desc')
 		}),
 		('Talles', {
 			'fields': (('S', 'M', 'L'), ('XL', 'XXL'))

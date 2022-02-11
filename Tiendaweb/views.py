@@ -56,8 +56,12 @@ def obtener_favoritos(request): #Devuelve los favoritos marcados por el usuario
 def home(request):
     newitems = Producto.objects.order_by('fecha_alta')[:10]
     sellitems = Imagene.objects.all().select_related('producto').order_by('-producto__Vendidos')[:10]
-    return render(request, 'home.html', {'sellitems':sellitems, 'items':newitems, 'ListaCategoria':obtener_categoria(), 
-        'context':obtener_carrito(request), 'contextfav':obtener_favoritos(request)})
+    sellitemsm = Imagene.objects.filter(producto__Sexo='M').select_related('producto').order_by('-producto__Vendidos')[:5]
+    sellitemsw = Imagene.objects.filter(producto__Sexo='F').select_related('producto').order_by('-producto__Vendidos')[:5]
+    sellitemsh = Imagene.objects.all().select_related('producto').order_by('-producto__fecha_alta')[:10]
+    return render(request, 'home.html', {'sellitemsh':sellitemsh,'sellitemsm':sellitemsm, 'sellitemsw':sellitemsw,'sellitems':sellitems, 
+        'items':newitems, 'ListaCategoria':obtener_categoria(), 'context':obtener_carrito(request), 
+        'contextfav':obtener_favoritos(request)})
 
 def shoplist(request):
     return render(request, 'shop.html')

@@ -37,6 +37,7 @@ class Colore(models.Model):
 
 class Producto(models.Model):
 	Codigo = models.CharField(max_length=10, validators=[MinLengthValidator(10, 'Codigo inválido')], primary_key=True)
+	Nombre = models.CharField(max_length=20)
 	Marca = models.ForeignKey('Marca',on_delete=models.RESTRICT)
 	Ano = models.DecimalField('Año', max_digits=4, decimal_places=0)
 	Categoria = models.ForeignKey('Categoria',on_delete=models.RESTRICT)
