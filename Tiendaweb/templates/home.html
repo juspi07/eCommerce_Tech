@@ -38,7 +38,8 @@
 </head>
 
 <body>
-    <div class="page-wrapper">
+    {% include 'message.html' %}
+	<div class="page-wrapper">
         <header class="header header-6">
             <div class="header-top">
                 <div class="container">
@@ -422,7 +423,7 @@
             <div class="mb-5"></div><!-- End .mb-5 -->
             <div class="container">
                 <div class="heading heading-center mb-3">
-                    <h2 class="title">Trending</h2><!-- End .title -->
+                    <h2 class="title">¡Los mas elegidos!</h2><!-- End .title -->
 
                     <ul class="nav nav-pills justify-content-center" role="tablist">
                         <li class="nav-item">
@@ -1041,27 +1042,27 @@
                                 <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
                                     <form action="#" method="POST"> {% csrf_token %}
                                         <div class="form-group">
-                                            <label for="singin-email">Username or email address *</label>
+                                            <label for="singin-email">Usuario *</label>
                                             <input type="text" class="form-control" id="singin-email" name="singin-email" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
-                                            <label for="singin-password">Password *</label>
+                                            <label for="singin-password">Contraseña *</label>
                                             <input type="password" class="form-control" id="singin-password" name="singin-password" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-footer">
                                             <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>LOG IN</span>
+                                                <span>INICIAR SESION</span>
                                                 <i class="icon-long-arrow-right"></i>
                                             </button>
 
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="signin-remember">
-                                                <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                                <label class="custom-control-label" for="signin-remember">Recuerdame</label>
                                             </div><!-- End .custom-checkbox -->
 
-                                            <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                            <a href="#" class="forgot-link">¿Olvidate tu contraseña?</a>
                                         </div><!-- End .form-footer -->
                                     </form>
                                     <div class="form-choice">
@@ -1070,13 +1071,13 @@
                                             <div class="col-sm-6">
                                                 <a href="#" class="btn btn-login btn-g">
                                                     <i class="icon-google"></i>
-                                                    Login With Google
+                                                    Iniciar sesión con Google
                                                 </a>
                                             </div><!-- End .col-6 -->
                                             <div class="col-sm-6">
                                                 <a href="#" class="btn btn-login btn-f">
                                                     <i class="icon-facebook-f"></i>
-                                                    Login With Facebook
+                                                    Iniciar sesión con Facebook
                                                 </a>
                                             </div><!-- End .col-6 -->
                                         </div><!-- End .row -->
@@ -1085,24 +1086,24 @@
                                 <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                                     <form action="#">
                                         <div class="form-group">
-                                            <label for="register-email">Your email address *</label>
+                                            <label for="register-email">Usuario *</label>
                                             <input type="email" class="form-control" id="register-email" name="register-email" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
-                                            <label for="register-password">Password *</label>
+                                            <label for="register-password">Contraseña *</label>
                                             <input type="password" class="form-control" id="register-password" name="register-password" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-footer">
                                             <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>SIGN UP</span>
+                                                <span>REGISTRARSE</span>
                                                 <i class="icon-long-arrow-right"></i>
                                             </button>
 
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="register-policy" required>
-                                                <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                                <label class="custom-control-label" for="register-policy">Estoy de acuerdo <a href="#">privacy policy</a> *</label>
                                             </div><!-- End .custom-checkbox -->
                                         </div><!-- End .form-footer -->
                                     </form>

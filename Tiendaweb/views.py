@@ -9,6 +9,7 @@ from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib import messages
 from .models import *
 
 
@@ -77,6 +78,8 @@ def home(request):
         if user is not None:
             # Se lo loguea en la sesion actual
             login(request, user)
+        else:
+            messages.warning(request, "Credenciales inválidas." )
 
     return render(request, 'home.html', {'sellitemsh':sellitemsh,'sellitemsm':sellitemsm, 'sellitemsw':sellitemsw,'sellitems':sellitems, 
         'items':newitems, 'ListaCategoria':obtener_categoria(), 'context':obtener_carrito(request), 
