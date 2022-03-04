@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
+SESSION_SAVE_EVERY_REQUEST = True
 
 # Application definition
 
@@ -42,6 +43,8 @@ INSTALLED_APPS = [
     'Tiendaweb.apps.TiendawebConfig',
     'easy_thumbnails',
     'image_cropping',
+    'widget_tweaks',
+    'django_filters',
 ]
 
 from easy_thumbnails.conf import Settings as thumbnail_settings

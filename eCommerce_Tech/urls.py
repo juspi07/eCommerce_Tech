@@ -18,13 +18,20 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth.urls import *
+from django.conf.urls import url
 
 from Tiendaweb import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('shop/', views.shoplist, name='shop-list'),
+    
+    url(r'^shop/$', views.shoplist, name='shop-list'), 
+    path('shop/search/cat/<str:categoria>', views.shoplistFCat, name='shop-list-filterCa'),
+    path('shop/search/mar/<str:Marca>', views.shoplistFMar, name='shop-list-filterM'),
+    path('shop/search/col/<str:Color>', views.shoplistFCol, name='shop-list-filterCo'),
+    
     path('category/', views.categorylist, name='category-list'),
     path('logout/', views.log_user_out, name='logout'),
+    path('login/', views.Auth_login, name='login'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

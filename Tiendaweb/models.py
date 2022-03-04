@@ -25,13 +25,14 @@ class Marca(models.Model):
 
 class Categoria(models.Model):
 	Nombre = models.CharField(max_length=30, primary_key=True)
+	Cantidad = models.PositiveSmallIntegerField(default=0)
 
 	def __str__(self):
 		return self.Nombre 
 
 class Colore(models.Model):
 	Nombre = models.CharField(max_length=15, primary_key=True)
-
+	Codigo = models.CharField(max_length=7, default='#ffffff')
 	def __str__(self):
 		return self.Nombre
 

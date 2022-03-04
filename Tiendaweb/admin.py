@@ -32,6 +32,17 @@ class ProductoAdmin(admin.ModelAdmin):
 		}),
 	)
 
+	def save_model(self, request, obj, form, change):
+		obj.Categoria.Cantidad += 1
+		obj.Categoria.save()
+		super().save_model(request, obj, form, change)
+
+	def delete_model(self, request, obj):
+		obj.Categoria.Cantidad -= 1
+		obj.Carrito.save()
+		super().delete_model(request, obj)
+
+
 @admin.register(ItemCarrito)
 class ItemCarritoAdmin(admin.ModelAdmin):
 
