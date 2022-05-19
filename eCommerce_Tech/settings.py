@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'image_cropping',
     'widget_tweaks',
     'django_filters',
+    'spurl',
 ]
 
 from easy_thumbnails.conf import Settings as thumbnail_settings

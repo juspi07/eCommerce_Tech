@@ -26,26 +26,21 @@ class Marca(models.Model):
 class Categoria(models.Model):
 	Nombre = models.CharField(max_length=30, primary_key=True)
 	Cantidad = models.PositiveSmallIntegerField(default=0)
-
+	Imagen = models.ImageField('Imagen:', upload_to='img_productos/Categoria/', default='')
+	
 	def __str__(self):
 		return self.Nombre 
-
-class Colore(models.Model):
-	Nombre = models.CharField(max_length=15, primary_key=True)
-	Codigo = models.CharField(max_length=7, default='#ffffff')
-	def __str__(self):
-		return self.Nombre
 
 class Producto(models.Model):
 	Codigo = models.CharField(max_length=10, validators=[MinLengthValidator(10, 'Codigo inválido')], primary_key=True)
 	Nombre = models.CharField(max_length=20)
+	Desc = models.TextField(max_length=60)
 	Marca = models.ForeignKey('Marca',on_delete=models.RESTRICT)
 	Ano = models.DecimalField('Año', max_digits=4, decimal_places=0)
 	Categoria = models.ForeignKey('Categoria',on_delete=models.RESTRICT)
-	Color = models.ForeignKey('Colore',on_delete=models.RESTRICT)
 	Temporada = models.CharField(max_length=1, choices=Temporada)
 	Sexo = models.CharField(max_length=1, choices=Sexo)
-	fecha_alta = models.DateField('Fecha de Alta:', auto_now_add=True) 
+	fecha_alta = models.DateField('Fecha de Alta', auto_now_add=True) 
 	Precio = models.DecimalField('Precio:', max_digits=9, decimal_places=2, validators=[MinValueValidator(0.01)])
 	Precio_desc = models.DecimalField('Precio Descuento:', max_digits=9, decimal_places=2, default=0)
 	Vendidos = models.DecimalField(default= 0, max_digits=4, decimal_places=0)
@@ -55,13 +50,16 @@ class Producto(models.Model):
 	XL = models.IntegerField()
 	XXL = models.IntegerField()
 
-
 class Imagene(models.Model):
 	producto = models.ForeignKey(Producto, null=False, on_delete=models.CASCADE)
 	Img1 = models.ImageField('Imagen Principal:', upload_to='img_productos/', default='')
 	Recorte1 = ImageRatioField('Img1', '277x377')
 	Img2 = models.ImageField('Imagen 2:', upload_to='img_productos/', default='')
 	Recorte2 = ImageRatioField('Img2', '277x377')
+	Img3 = models.ImageField('Imagen 3:', upload_to='img_productos/', default='')
+	Recorte3 = ImageRatioField('Img3', '277x377')
+	Img4 = models.ImageField('Imagen 4:', upload_to='img_productos/', default='')
+	Recorte4 = ImageRatioField('Img4', '277x377')
 
 	def __str__(self):
 		return self.producto.Codigo
@@ -88,7 +86,6 @@ class ItemCarrito(models.Model):
 	def __str__(self):
 		return "Carrito: {}. Contenido: {} {}-{}(s).".format(self.carrito.usuario,
 			self.cantidad, self.producto.marca, self.producto.categoria)
-
 
 class Favorito(models.Model):
 	usuario = models.ForeignKey(User, null=False, on_delete=models.CASCADE)

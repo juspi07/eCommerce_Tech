@@ -5,10 +5,6 @@ from .models import *
 
 # Register your models here.
 
-@admin.register(Colore)
-class ColorAdmin(admin.ModelAdmin):
-	list_display = ('Nombre',)
-
 @admin.register(Categoria)
 class ArticuloAdmin(admin.ModelAdmin):
 	list_display = ('Nombre',)
@@ -19,18 +15,21 @@ class MarcaAdmin(admin.ModelAdmin):
 
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
-	list_display = ('Codigo', 'Marca', 'Categoria', 'Color', 'Temporada', 'Ano', 'S', 'M', 'L', 'XL', 'XXL')
+	list_display = ('Codigo', 'Marca', 'Categoria', 'Temporada', 'Ano', 'S', 'M', 'L', 'XL', 'XXL')
 
-	list_filter = ('Marca', 'Categoria', 'Color', 'Ano', 'Temporada')
+	list_filter = ('Marca', 'Categoria', 'Ano', 'Temporada')
 
 	fieldsets = (
 		(None, {
-			'fields': ('Codigo', 'Nombre', 'Marca', 'Ano', 'Categoria', 'Color', 'Temporada', 'Sexo', 'Vendidos', 'Precio', 'Precio_desc')
+			'fields': ('Codigo', 'Nombre', 'Desc', 'Marca', 'Ano', 'Categoria', 'Temporada', 'Sexo', 'Vendidos', 'Precio', 'Precio_desc', 'fecha_alta')
 		}),
 		('Talles', {
 			'fields': (('S', 'M', 'L'), ('XL', 'XXL'))
 		}),
 	)
+
+	readonly_fields=('fecha_alta',)
+
 
 	def save_model(self, request, obj, form, change):
 		obj.Categoria.Cantidad += 1
