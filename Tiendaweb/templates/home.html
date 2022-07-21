@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>EShopper - Bootstrap Shop Template</title>
+    <title>EShopper - Shop </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -28,7 +28,8 @@
 </head>
 
 <body>
-    <!-- Topbar Start -->
+    {% include 'message.html' %}
+	<!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row bg-secondary py-2 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
@@ -42,19 +43,19 @@
             </div>
             <div class="col-lg-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
-                    <a class="text-dark px-2" href="{% static '">
+                    <a class="text-dark px-2" href="">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a class="text-dark px-2" href="{% static '">
+                    <a class="text-dark px-2" href="">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a class="text-dark px-2" href="{% static '">
+                    <a class="text-dark px-2" href="">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a class="text-dark px-2" href="{% static '">
+                    <a class="text-dark px-2" href="">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a class="text-dark pl-2" href="{% static '">
+                    <a class="text-dark pl-2" href="">
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
@@ -84,7 +85,7 @@
 						<i class="fas fa-heart text-primary"></i>
 						<span class="badge">{{Favorito.cantidad}}</span>
 					</a>
-					<a href="#" class="btn border">
+					<a href="{% url 'cart' %}" class="btn border">
 						<i class="fas fa-shopping-cart text-primary"></i>
 						<span class="badge">{{Carrito.cantidad}}</span>
 					</a>
@@ -135,12 +136,11 @@
                         </div>
                         {% if not user.is_authenticated %}
 							<div class="navbar-nav ml-auto py-0">
-								<a href="#" class="nav-item nav-link">Ingresar</a>
-								<a href="#" class="nav-item nav-link">Registrarse</a>
+								<a href="{% url 'login' %}" class="nav-item nav-link">Ingresar / Registrarse</a>
 							</div>
 						{% else %}
 							<div class="navbar-nav ml-auto py-0">
-								<a href="#" class="nav-item nav-link">Salir</a>
+								<a href="{% url 'logout' %}" class="nav-item nav-link">Salir</a>
 							</div>
 						{% endif %}
 					</div>

@@ -40,4 +40,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('logout/', views.log_user_out, name='logout'),
     path('login/', views.Auth_login, name='login'),
+    path('cart/', views.carrito, name='cart'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

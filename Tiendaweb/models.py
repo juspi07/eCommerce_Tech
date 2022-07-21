@@ -76,6 +76,7 @@ class ItemCarrito(models.Model):
 	carrito = models.ForeignKey(Carrito, null=False, on_delete=models.CASCADE)
 	producto = models.ForeignKey(Producto, null=False, on_delete=models.CASCADE)
 	cantidad = models.PositiveIntegerField(default=1)
+	talle = models.CharField(default='S', max_length=5)
 	subtotal = models.DecimalField('Subtotal:', max_digits=9, decimal_places=2, default=0)
 
 	class Meta:

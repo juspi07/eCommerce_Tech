@@ -67,16 +67,7 @@
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
-                <form action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
-                        <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </div>
-                    </div>
-                </form>
+                <form action=""/>
             </div>
             {% if user.is_authenticated %}
 				<div class="col-lg-3 col-6 text-right">
@@ -123,15 +114,7 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="{% url 'home' %}" class="nav-item nav-link">Inicio</a>
                             <a href="{% url 'shop-list' %}" class="nav-item nav-link active">Tienda</a>
-                            <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                                <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                    <a href="checkout.html" class="dropdown-item">Checkout</a>
-                                </div>
-                            </div>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            <a href="contact.html" class="nav-item nav-link">Contacto</a>
                         </div>
                         {% if not user.is_authenticated %}
 							<div class="navbar-nav ml-auto py-0">
@@ -183,31 +166,26 @@
                             <input type="checkbox" onchange="window.location.href= '{% spurl base=request.get_full_path set_query="Precio=Precio-1" %}'"
 								class="custom-control-input" id="price-1">
                             <label class="custom-control-label" for="price-1">$1 - $100</label>
-                            <span class="badge border font-weight-normal">150</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
 							<input type="checkbox" onchange="window.location.href= '{% spurl base=request.get_full_path set_query="Precio=Precio-2" %}'"
 								class="custom-control-input" id="price-2">
                             <label class="custom-control-label" for="price-2">$100 - $200</label>
-                            <span class="badge border font-weight-normal">295</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" onchange="window.location.href= '{% spurl base=request.get_full_path set_query="Precio=Precio-3" %}'"
 								class="custom-control-input" id="price-3">
                             <label class="custom-control-label" for="price-3">$200 - $300</label>
-                            <span class="badge border font-weight-normal">246</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" onchange="window.location.href= '{% spurl base=request.get_full_path set_query="Precio=Precio-4" %}'"
 								class="custom-control-input" id="price-4">
                             <label class="custom-control-label" for="price-4">$300 - $400</label>
-                            <span class="badge border font-weight-normal">145</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
                             <input type="checkbox" onchange="window.location.href= '{% spurl base=request.get_full_path set_query="Precio=Precio-5" %}'"
 								class="custom-control-input" id="price-5">
                             <label class="custom-control-label" for="price-5">$400 - $500</label>
-                            <span class="badge border font-weight-normal">168</span>
                         </div>
                     </form>
                 </div>
@@ -274,7 +252,7 @@
 								class="custom-control-input" id="cat-all">
                             <label class="custom-control-label" for="cat-all">Todas las categorías</label>
                         </div>	
-                        {% for row in context.Cat_Sort %}
+						{% for row in context.Cat_Sort %}
 							<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
 								{% if context.cat == row.Nombre %}
 									<input type="checkbox" onchange="window.location.href='{% spurl base=request.get_full_path set_query="Categoria={{row.Nombre}}" %}'" 
@@ -284,7 +262,7 @@
 										class="custom-control-input" id="cat-{{row.Nombre}}">
 								{% endif %}
 								<label class="custom-control-label" for="cat-{{row.Nombre}}">{{row.Nombre}}</label>
-								<span class="badge border font-weight-normal">{{row.total}}</span>
+								<span class="badge border font-weight-normal">{{row.Cantidad}}</span>
 							</div>
 						{% endfor %}
 					</form>
@@ -300,20 +278,20 @@
                 <div class="row pb-3">
                     <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <form action="">
+                        <!--    <form action=""> -->
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search by name">
+                                    <input type="text" class="form-control" id="busqueda" placeholder="Buscar por nombre..." >
                                     <div class="input-group-append">
                                         <span class="input-group-text bg-transparent text-primary">
                                             <i class="fa fa-search"></i>
                                         </span>
                                     </div>
                                 </div>
-                            </form>
+                        <!--    </form> -->
                             <div class="dropdown ml-4">
                                 <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
-                                            Sort by
+                                            Ordenar por
                                         </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
                                     <a class="dropdown-item" href="{% spurl base=my_url set_query="Orden=Lastest" %}">Recientes</a>
@@ -323,7 +301,7 @@
                         </div>
                     </div>
                     {% for row in context.page_obj %}
-						<div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+						<div class="col-lg-4 col-md-6 col-sm-12 pb-1" id="{{row.producto.Nombre}}">
 							<div class="card product-item border-0 mb-4">
 								<div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
 									<img class="img-fluid w-100" src="{{row.Img1.url}}" alt="">
@@ -339,8 +317,7 @@
 									</div>
 								</div>
 								<div class="card-footer d-flex justify-content-between bg-light border">
-									<a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Detalles</a>
-									<a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Carrito</a>
+									<a href="{% url 'shop-prod' row.producto.Codigo %}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Detalles</a>
 								</div>
 							</div>
 						</div>

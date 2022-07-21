@@ -62,7 +62,8 @@
 
     // Related carousel
     $('.related-carousel').owlCarousel({
-        loop: true,
+        loop: false,
+        rewind: true,
         margin: 29,
         nav: false,
         autoplay: true,
@@ -99,7 +100,24 @@
         }
         button.parent().parent().find('input').val(newVal);
     });
+
     
+
+    $('#busqueda').on('input', function() {
+        var txt = $('#busqueda').val()
+        $('div.col-lg-4.col-md-6.col-sm-12.pb-1').hide()
+        $('div.col-lg-4.col-md-6.col-sm-12.pb-1').each(function(){
+            if($(this).text().toUpperCase().indexOf(txt.toUpperCase()) != -1){
+                $(this).show();
+            };
+        });
+    });
+
+
+
+
+
+
     $(document).ready(function () {
         if ($('form#color input').not(':checked').length == $('form#color input').length) { 
                 $('#color-all').prop('checked', true); };

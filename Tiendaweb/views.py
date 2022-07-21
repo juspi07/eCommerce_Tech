@@ -74,12 +74,14 @@ def home(request):
 	)
 
 def shoplist(request):
-	cat = tam = col = mar = None
+	#col = None
+	cat = tam = mar = None
+	Products = Imagene.objects.all().select_related('producto')
 	Product_List = Imagene.objects.all().select_related('producto')
-	if request.GET.get('Color'):
-		col = request.GET.get('Color')
-		request.session['Color'] = col
-		Product_List = Product_List.filter(producto__Color=col)
+	#if request.GET.get('Color'):
+	#	col = request.GET.get('Color')
+	#	request.session['Color'] = col
+	#	Product_List = Product_List.filter(producto__Color=col)
 	if request.GET.get('Tamanio'):
 		tam = request.GET.get('Tamanio')
 		fil = 'producto__' + tam + '__gt'
@@ -131,10 +133,11 @@ def shoplist(request):
 	except EmptyPage:
 		page_obj = paginator.page(paginator.num_pages)
 	context = {
-		'Col_Sort':Colore.objects.values('Nombre').annotate(total=Count('Nombre')).order_by(),
+		#'Col_Sort':Colore.objects.values('Nombre').annotate(total=Count('Nombre')).order_by(),
 		'Mar_Sort':Marca.objects.values('Nombre').annotate(total=Count('Nombre')).order_by(),
-		'Cat_Sort':Categoria.objects.values('Nombre').annotate(total=Count('Nombre')).order_by(),		
-		'cat':cat, 'tam':tam, 'col':col, 'mar':mar, 'page_obj':page_obj,
+		'Cat_Sort':Categoria.objects.all().order_by('Nombre'),		
+		'cat':cat, 'tam':tam, #'col':col
+		'mar':mar, 'page_obj':page_obj,
 	}
 	
 	return render(request, 'shop.html', {'context':context,
@@ -143,14 +146,26 @@ def shoplist(request):
 		'ListaCategoria':obtener_categoria()})
 
 def shoprod(request, Codigo):
-	aux = Producto.objects.filter(Codigo=Codigo)
-
 	context = {
-		'items_similares' = Producto.objects.filter(Categoria=aux.Categoria).exclude(Codigo=Codigo)[:8]
+		'items_similares' : Imagene.objects.all().select_related('producto').exclude(producto=Codigo).distinct()[:8]
 	}
 
 	return render(request, 'detail.html', {'context':context,
 		'Product' : Imagene.objects.filter(producto=Codigo).select_related('producto').get(),
+		'Favorito':obtener_favoritos(request),
+		'Carrito':obtener_carrito(request),
+		'ListaCategoria':obtener_categoria()})
+
+
+def addcarrito(request, Codigo):
+	size = request.POST.get('size-opt')
+	cant = request.POST.get('cantidad')
+
+
+	return redirect('shop-prod')
+
+def carrito(request):
+	return render(request, 'cart.html', {
 		'Favorito':obtener_favoritos(request),
 		'Carrito':obtener_carrito(request),
 		'ListaCategoria':obtener_categoria()})
@@ -171,11 +186,10 @@ def favoritos(request):
 ########################################################################################################################
 
 def Auth_login(request):
-	F_Reg = Register(request.POST or None)
 	F_Log = Login(request.POST or None)
 
 	if request.method == 'POST':
-		if '_singup' in request.POST:
+		if '_singin' in request.POST:
 			if F_Log.is_valid():
 				user = authenticate(username=F_Log.cleaned_data['username'], password=F_Log.cleaned_data['password'])
 				if user is not None:
@@ -185,16 +199,16 @@ def Auth_login(request):
 					messages.warning(request, "Credenciales inválidas." )
 					return redirect('login')
 		else:
-			if F_Reg.is_valid():
-				if User.objects.filter(username = F_Reg.cleaned_data['username']).first():
+			if F_Log.is_valid():
+				if User.objects.filter(username = F_Log.cleaned_data['username']).first():
 					messages.error(request, "Usuario ya ocupado")
 					return redirect('login')
-				user = User.objects.create_user(F_Reg.cleaned_data['username'], '', F_Reg.cleaned_data['password'])
+				user = User.objects.create_user(F_Log.cleaned_data['username'], '', F_Log.cleaned_data['password'])
 				user.save()
 				login(request, user)
 				return redirect('home')
 
-	return render(request, 'login.html', {'F_Reg' :F_Reg, 'F_Log':F_Log})
+	return render(request, 'login.html', {'F_Log':F_Log})
 
 
 @login_required
