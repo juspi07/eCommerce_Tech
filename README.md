@@ -17,6 +17,7 @@ Developing (with Django) clothing web store with users, cart, checkout, and more
 ![](https://i.postimg.cc/Kc51zP9G/Screenshot-2.jpg)
 
 ![](https://i.postimg.cc/d3n3xF7k/Screenshot-3.jpg)
+
 ## Features
 
 - Sign in / Sign up
